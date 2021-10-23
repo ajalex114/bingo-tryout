@@ -1,0 +1,19 @@
+﻿#bingo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 140px;
+}
+#bingo-content {
+    display: table
+}
+
+#text-content {
+    /*display: flow;*/
+    margin: 10px;
+    background-image: url(square.png);
+}
+
+strong {
+    font-size: 30px;
+}

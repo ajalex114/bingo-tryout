@@ -1,0 +1,91 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<div class="bingo">
+    <h1>Bingo</h1>
+
+    @code {
+        string[][] bingo = new string[5][];
+        string[][] backup = new string[5][];
+
+        void Load()
+        {
+            var range = Enumerable.Range(1, 50).ToArray();
+            int count = 0;
+            var random = new Random();
+            int len = range.Length - 1;
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                bingo[i] = new string[5];
+                backup[i] = new string[5];
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    var next = random.Next(len - count);
+
+                    for (int k = 0; k < 50; k++)
+                    {
+                        next = random.Next(len - count);
+                    }
+                    bingo[i][j] = range[next].ToString();
+                    backup[i][j] = range[next].ToString();
+                    Swap(range, count, next);
+                    count++;
+                }
+            }
+        }
+
+        void OnClick(int i, int j)
+        {
+            Console.WriteLine($"onclick: {i},{j}");
+            if (bingo[i][j] == "X")
+            {
+                bingo[i][j] = backup[i][j];
+            }
+            bingo[i][j] = "X";
+        }
+
+        void Swap(int[] range, int count, int pos)
+        {
+            int len = range.Length - 1;
+            var temp = range[pos];
+            var last = range[len - count];
+            range[pos] = last;
+            range[len - count] = temp;
+        }
+
+        protected override void OnInitialized()
+        {
+            Load();
+            base.OnInitialized();
+        }
+
+    }
+
+    <div class="bingo-content">
+        @for (int i = 0; i < 5; i++)
+        {
+            @for (int j = 0; j < 5; j++)
+            {
+                var space = bingo[i][j].Length == 1 ? 3 : 1;
+
+                @*<img class="image-content" src="~/square.png"/>*@
+                var localI = i;
+                var localJ = j;
+                <strong class="text-content" @onclick="()=>OnClick(localI,localJ)">|&nbsp;&nbsp;@bingo[i][j] 
+                    @for (int s=0; s<space; s++)
+                    {
+                        <strong>&nbsp;</strong>
+                    }
+                    |</strong>
+            }
+            <br />
+        }
+    </div>
+</div>

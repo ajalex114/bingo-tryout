@@ -1,0 +1,19 @@
+#bingo[b-dr9gao697x] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 140px;
+}
+#bingo-content[b-dr9gao697x] {
+    display: table
+}
+
+#text-content[b-dr9gao697x] {
+    /*display: flow;*/
+    margin: 10px;
+    background-image: url(square.png);
+}
+
+strong[b-dr9gao697x] {
+    font-size: 30px;
+}
